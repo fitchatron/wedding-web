@@ -1,37 +1,35 @@
-import Link from "next/link";
+import BaseInput from "@/components/inputs/BaseInput";
+import BaseLabel from "@/components/inputs/BaseLabel";
+import Navbar from "@/components/navigation/Navbar";
+import PageFooter from "@/components/PageFooter";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
-        <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem]">
-          Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
-        </h1>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-            <div className="text-lg">
-              Just the basics - Everything you need to know to set up your
-              database and authentication.
-            </div>
-          </Link>
-          <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
-            href="https://create.t3.gg/en/introduction"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">Documentation →</h3>
-            <div className="text-lg">
-              Learn more about Create T3 App, the libraries it uses, and how to
-              deploy it.
-            </div>
-          </Link>
-        </div>
-      </div>
-    </main>
+    <div className="grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
+      <Navbar logoAsHomePage={false} logoSrc={""} />
+      <main>
+        <div className="h-64 bg-red-400">Hero Image</div>
+        <section className="bg-pink-400 md:grid md:grid-cols-2">
+          <div className="flex h-full w-full place-content-center bg-orange-400 md:relative md:h-72 md:items-start md:overflow-hidden">
+            <Image
+              className="md:absolute md:-top-12"
+              objectFit="cover"
+              // fill
+              src={"/images/bennett_soph.jpeg"}
+              alt="Bennett and Soph"
+              // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              width={300}
+              height={300}
+            />
+          </div>
+          <div>
+            <div className="bg-emerald-500">Find Invite</div>
+            <div className="bg-indigo-500">Details</div>
+          </div>
+        </section>
+      </main>
+      <PageFooter />
+    </div>
   );
 }
