@@ -8,5 +8,5 @@ export default {
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  tablesFilter: ["bennett-soph_*"],
+  tablesFilter: ["bennett_soph_*"],
 } satisfies Config;

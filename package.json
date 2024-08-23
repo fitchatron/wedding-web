@@ -1,5 +1,5 @@
 {
-  "name": "bennett-soph",
+  "name": "bennett_soph",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,19 +8,23 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
+    "db:drop": "drizzle-kit drop",
     "db:studio": "drizzle-kit studio",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@t3-oss/env-nextjs": "^0.10.1",
+    "clsx": "^2.1.1",
     "drizzle-orm": "^0.30.10",
     "geist": "^1.3.0",
     "next": "^14.2.4",
     "postgres": "^3.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "use-debounce": "^10.0.3",
     "zod": "^3.23.3"
   },
   "devDependencies": {
