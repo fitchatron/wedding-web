@@ -187,7 +187,7 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
                 <div className="relative hidden md:block">
                   <BaseInput
                     id="site_search"
-                    value={searchText}
+                    defaultValue={searchText}
                     placeholder="Search the site"
                     onChange={handleSearchTextChange}
                     showLeadingIcon={true}

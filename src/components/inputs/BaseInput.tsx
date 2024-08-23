@@ -1,6 +1,5 @@
 "use client";
 import { type ComponentType, useEffect, useState } from "react";
-import { useDebounce, useDebouncedCallback } from "use-debounce";
 import BaseLabel from "./BaseLabel";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
@@ -16,7 +15,7 @@ type Props<T extends string | number | readonly string[]> = {
   Icon?: ComponentType<{ className?: string }>;
   showClearButton: boolean;
   type: string;
-  value: T;
+  defaultValue?: T;
 };
 
 export default function BaseInput<
@@ -25,6 +24,7 @@ export default function BaseInput<
   id,
   delay = 0,
   errors,
+  defaultValue = "" as T,
   label,
   onChange,
   placeholder = "Enter text",
@@ -32,28 +32,25 @@ export default function BaseInput<
   Icon = MagnifyingGlassIcon,
   showClearButton,
   type,
-  value,
 }: Props<T>) {
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState(defaultValue);
 
-  // Create a debounced value
-  // const [debouncedValue, setDebouncedValue] = useDebounce(inputValue, delay);
-  const test = useDebouncedCallback((term: T) => {
-    debugger;
-    setInputValue(term);
-    onChange(term);
-  }, delay);
-  /**
-   * Call the onUpdate function when a user stops typing
-   */
-  // useEffect(() => {
-  //   // debugger;
-  //   onChange(debouncedValue);
-  // }, [debouncedValue, onChange]);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      onChange(inputValue);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [inputValue, delay, onChange]);
+
+  const handleChange = (value: T) => {
+    setInputValue(value);
+  };
 
   function clearInput() {
     const EMPTY_VALUE = type == "number" ? 0 : "";
-    // setDebouncedValue(EMPTY_VALUE as T);
     setInputValue(EMPTY_VALUE as T);
     onChange(EMPTY_VALUE as T);
   }
@@ -77,11 +74,9 @@ export default function BaseInput<
           type={type}
           placeholder={placeholder}
           value={inputValue}
-          // defaultValue={value}
-          // onChange={(e) => setInputValue(e.target.value as T)}
-          onChange={(e) => test(e.target.value as T)}
+          onChange={(e) => handleChange(e.target.value as T)}
         />
-        {showClearButton && value.toString().length > 0 && (
+        {showClearButton && inputValue.toLocaleString().length > 0 && (
           <button
             onClick={clearInput}
             title="Clear input"
