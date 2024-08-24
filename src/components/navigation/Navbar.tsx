@@ -9,7 +9,6 @@ import PrimaryDesktopLink from "@components/navigation/PrimaryDesktopLink";
 import PrimaryMobileLink from "@components/navigation/PrimaryMobileLink";
 import SecondaryLink from "@components/navigation/SecondaryLink";
 import BaseInput from "../inputs/BaseInput";
-import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   logoAsHomePage: boolean;
@@ -50,7 +49,7 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
       name: "profile",
       label: "Your Profile",
       path: "/profile",
-      icon: MagnifyingGlassCircleIcon,
+      icon: undefined,
       permission_id: undefined,
     },
     {
@@ -180,7 +179,6 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
                     key={index}
                     href={link.path}
                     label={link.label}
-                    isActive={false}
                   />
                 ))}
 
@@ -312,7 +310,7 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
                     ))}
                     <button
                       id="user-menu-item-sign-out"
-                      className="block w-full rounded-b-md bg-red-300 px-4 py-2 text-left text-sm text-red-900 hover:bg-red-500 hover:text-white"
+                      className="block w-full rounded-b bg-red-300 px-4 py-2 text-left text-sm text-red-900 hover:bg-red-500 hover:text-white"
                       type="button"
                       onClick={handleSignOut}
                       title="Sign out"
@@ -352,7 +350,6 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
                 key={index}
                 href={link.path}
                 label={link.label}
-                isActive={false}
               />
             ))}
           </div>
