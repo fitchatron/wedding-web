@@ -5,10 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import PrimaryDesktopLink from "@components/navigation/PrimaryDesktopLink";
 import PrimaryMobileLink from "@components/navigation/PrimaryMobileLink";
 import SecondaryLink from "@components/navigation/SecondaryLink";
-import BaseInput from "../inputs/BaseInput";
+import BaseClientInput from "../inputs/BaseClientInput";
+import { type NavigationLink } from "@/lib/models/navigation-link";
 
 type Props = {
   logoAsHomePage: boolean;
@@ -29,41 +31,39 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
   );
   const [isDark, setIsDark] = useState(false);
 
-  const primaryLinks = [
+  const primaryLinks: Array<NavigationLink> = [
     {
       name: "register-details",
       label: "Register Details",
-      path: "/register-details",
-      permission_id: undefined,
+      href: "/register-details",
     },
     {
       name: "news",
       label: "News",
-      path: "/news",
-      permission_id: undefined,
+      href: "/news",
     },
   ];
 
-  const secondaryLinks = [
+  const secondaryLinks: Array<NavigationLink> = [
     {
       name: "profile",
       label: "Your Profile",
-      path: "/profile",
-      icon: undefined,
+      href: "/profile",
+      Icon: undefined,
       permission_id: undefined,
     },
     {
       name: "settings",
       label: "Settings",
-      path: "/settings",
-      icon: undefined,
+      href: "/settings",
+      Icon: undefined,
       permission_id: undefined,
     },
     {
       name: "admin",
       label: "Admin",
-      path: "/admin",
-      icon: undefined,
+      href: "/admin",
+      Icon: undefined,
       permission_id: undefined,
     },
   ];
@@ -177,18 +177,18 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
                 {primaryLinks.map((link, index) => (
                   <PrimaryDesktopLink
                     key={index}
-                    href={link.path}
+                    href={link.href}
                     label={link.label}
                   />
                 ))}
 
                 <div className="relative hidden md:block">
-                  <BaseInput
+                  <BaseClientInput
                     id="site_search"
                     defaultValue={searchText}
                     placeholder="Search the site"
                     onChange={handleSearchTextChange}
-                    showLeadingIcon={true}
+                    Icon={MagnifyingGlassIcon}
                     showClearButton={true}
                     type={"text"}
                     delay={700}
@@ -300,13 +300,7 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
                     tabIndex={-1}
                   >
                     {secondaryLinks.map((link, index) => (
-                      <SecondaryLink
-                        key={index}
-                        href={link.path}
-                        label={link.label}
-                        index={index}
-                        Icon={link.icon}
-                      />
+                      <SecondaryLink key={index} link={link} />
                     ))}
                     <button
                       id="user-menu-item-sign-out"
@@ -348,7 +342,7 @@ export default function Navbar({ logoAsHomePage, logoSrc }: Props) {
             {primaryLinks.map((link, index) => (
               <PrimaryMobileLink
                 key={index}
-                href={link.path}
+                href={link.href}
                 label={link.label}
               />
             ))}

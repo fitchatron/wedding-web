@@ -1,8 +1,4 @@
 import BaseLayout from "@/components/BaseLayout";
-import BaseInput from "@/components/inputs/BaseInput";
-import BaseLabel from "@/components/inputs/BaseLabel";
-import Navbar from "@/components/navigation/Navbar";
-import PageFooter from "@/components/PageFooter";
 import Image from "next/image";
 
 export default function HomePage() {

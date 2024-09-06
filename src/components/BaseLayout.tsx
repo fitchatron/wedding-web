@@ -10,7 +10,7 @@ export default function BaseLayout({ children }: Readonly<Props>) {
   return (
     <div className="grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
       <Suspense>
-        <Navbar logoAsHomePage={false} logoSrc={""} />
+        <Navbar logoAsHomePage={false} />
       </Suspense>
       <main>{children}</main>
       <PageFooter />

@@ -1,35 +1,36 @@
 "use client";
 import { type ComponentType, useEffect, useState } from "react";
 import BaseLabel from "./BaseLabel";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
 type Props<T extends string | number | readonly string[]> = {
   id: string;
+  defaultValue?: T;
   delay?: number; // in milliseconds
+  disabled?: boolean;
   errors?: string[];
   label?: string;
   onChange: (value: T) => void;
   placeholder?: string;
-  showLeadingIcon: boolean;
+  required?: boolean;
   Icon?: ComponentType<{ className?: string }>;
   showClearButton: boolean;
   type: string;
-  defaultValue?: T;
 };
 
-export default function BaseInput<
+export default function BaseClientInput<
   T extends string | number | readonly string[],
 >({
   id,
-  delay = 0,
-  errors,
   defaultValue = "" as T,
+  delay = 0,
+  disabled,
+  errors,
   label,
   onChange,
   placeholder = "Enter text",
-  showLeadingIcon,
-  Icon = MagnifyingGlassIcon,
+  required,
+  Icon,
   showClearButton,
   type,
 }: Props<T>) {
@@ -58,7 +59,7 @@ export default function BaseInput<
     <div>
       {label && <BaseLabel htmlFor={id} label={"Search Site"} />}
       <div className="relative">
-        {showLeadingIcon && (
+        {Icon && (
           <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3.5">
             {<Icon className="h-4 w-4 text-gray-500 dark:text-gray-400" />}
           </div>
@@ -75,6 +76,9 @@ export default function BaseInput<
           placeholder={placeholder}
           value={inputValue}
           onChange={(e) => handleChange(e.target.value as T)}
+          required={required}
+          disabled={disabled}
+          aria-describedby={`${id}-error`}
         />
         {showClearButton && inputValue.toLocaleString().length > 0 && (
           <button
@@ -99,7 +103,12 @@ export default function BaseInput<
       </div>
 
       {errors && (
-        <div aria-live="polite" aria-atomic="true" v-if="errors">
+        <div
+          id={`${id}-error`}
+          aria-live="polite"
+          aria-atomic="true"
+          v-if="errors"
+        >
           {errors.map((index, error) => (
             <p className="mt-2 text-sm text-red-500" key={index}>
               {error}
